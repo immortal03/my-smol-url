@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: my_smol_url_development
+
+test:
+  <<: *default
+  database: my_smol_url_test
+
+production:
+  <<: *default
+  database: my_smol_url_production
+  username: my_smol_url
+  password: <%= ENV["MY_SMOL_URL_DATABASE_PASSWORD"] %>

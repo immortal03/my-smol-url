@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en" class="bg-gradient-to-r from-indigo-600 to-blue-400 antialiased w-screen h-full">
   <head>
-    <title>MySmolUrl</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>My Smol URL - Shorten your URL</title>
+    <%= render "layouts/meta" %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
+    <%= yield :head %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+
+    <%= render "layouts/favicon" %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="h-full">
+    <%= yield %>
+    <%= yield :tail %>
   </body>
 </html>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: "/sidekiq"
 
+  get "/:slug", to: "landing#redirector"
   get "/(*others)", to: "landing#index"
   get "/analytics/(*others)", to: "landing#index"
 end

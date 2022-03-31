@@ -1,17 +1,17 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
-    include GraphQL::Types::Relay::HasNodeField
-    include GraphQL::Types::Relay::HasNodesField
+    field :retrieve_links_with_connection, Link::LinkType.connection_type, null: true, connection: true
 
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :retrieve_link, Link::LinkType, null: true do
+      argument :slug, String, required: true
+    end
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    def retrieve_links_with_connection
+      Link.all.order(created_at: :desc)
+    end
+
+    def retrieve_link(slug:)
+      Link.find_by(slug: slug)
     end
   end
 end

@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_144043) do
 
   create_table "click_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "ip_address"
-    t.json "ip_info"
     t.string "country"
     t.string "browser"
     t.string "device"

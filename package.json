@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": "17.6.0",
-    "yarn": "1.22.18"
+    "node": "16.13.1",
+    "yarn": "1.22.17"
   },
   "dependencies": {
     "@apollo/client": "3.5.10",

@@ -48,7 +48,9 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "webpacker", "~> 5.4.3"
+# Webpacker v6.0.0.rc.6 used due to some missing yarn issue when deploying using dokku
+# https://github.com/rails/rails/issues/43906
+gem "webpacker", "~> 6.0.0.rc.6"
 
 # GraphQL
 gem "graphql", "~> 2.0.5"
@@ -60,6 +62,8 @@ gem "rack-attack", "~> 6.6.0" # Rack middleware for blocking & throttling abusiv
 gem "tailwindcss-rails", "~> 2.0.8"
 gem "browser", "~> 5.3.1"
 gem "geocoder", "~> 1.7.5"
+gem "sidekiq", "~> 6.4"
+gem "metainspector", "~> 5.11.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -82,6 +86,7 @@ group :development do
   gem "rubocop-rspec", require: false
   gem "graphiql-rails"
   gem "pry-rails"
+  gem "faker"
 end
 
 group :test do
@@ -90,5 +95,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-gem "sidekiq", "~> 6.4"

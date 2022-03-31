@@ -5,7 +5,7 @@ import Footer from "./Footer"
 
 const Layout = ({ children }) => {
   return (
-    <div className="relative flex h-full flex-col overflow-x-hidden pt-6">
+    <div className="relative flex flex-col overflow-x-hidden pt-6">
       <Navbar />
       {children}
       <Footer />
@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Layout

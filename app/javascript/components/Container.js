@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 const Container = ({ children }) => {
   return (
-    <main className="relative mx-auto mt-16 w-full px-6 sm:mt-24 sm:w-4/5 lg:px-0">
+    <main className="relative mx-auto mt-10 h-full w-full px-2 sm:mt-20 sm:w-3/4 sm:max-w-5xl sm:px-0">
       {children}
     </main>
   )

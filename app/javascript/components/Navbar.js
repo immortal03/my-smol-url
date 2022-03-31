@@ -15,7 +15,7 @@ const Navbar = () => {
     <NavbarWrapper>
       <Popover>
         <nav
-          className="lg-px-20 relative flex max-w-7xl items-center justify-between px-4 sm:px-6"
+          className="relative flex max-w-7xl items-center justify-between"
           aria-label="Global"
         >
           <div className="flex flex-1 items-center">
@@ -37,7 +37,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="hidden space-x-10 md:ml-10 md:flex">
+            <div className="hidden space-x-5 md:ml-10 md:flex">
               <NavLinks />
             </div>
           </div>
@@ -86,7 +86,11 @@ const Navbar = () => {
 }
 
 const NavbarWrapper = ({ children }) => {
-  return <header className="mx-auto w-full sm:w-3/4">{children}</header>
+  return (
+    <header className="mx-auto h-full w-full px-2 pr-4 sm:w-3/4 sm:max-w-5xl sm:px-0 sm:pr-0">
+      {children}
+    </header>
+  )
 }
 
 NavbarWrapper.propTypes = {
@@ -96,7 +100,7 @@ NavbarWrapper.propTypes = {
 const NavLinks = ({ isMobile = false }) => {
   const linkClass = isMobile
     ? "block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-    : "font-medium text-white hover:text-gray-300"
+    : "font-medium text-dark hover:bg-slate-200 p-2 rounded-md"
 
   return (
     <React.Fragment>

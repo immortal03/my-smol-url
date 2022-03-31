@@ -14,7 +14,7 @@ const Input = ({
   placeholder,
 }) => {
   return (
-    <div className="rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+    <div className="rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus-within:border-orange-600 focus-within:ring-1 focus-within:ring-orange-600">
       <label htmlFor={name} className="block text-xs font-medium text-gray-900">
         {label || startCase(name)}
       </label>
@@ -42,7 +42,7 @@ Input.propTypes = {
   value: PropTypes.string,
   type: PropTypes.string,
   required: PropTypes.bool,
-  inputRef: PropTypes.func,
+  inputRef: PropTypes.object,
   placeholder: PropTypes.string,
 }
 

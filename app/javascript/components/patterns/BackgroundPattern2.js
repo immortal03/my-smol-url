@@ -3,7 +3,7 @@ import React from "react"
 const BackgroundPattern2 = () => {
   return (
     <div
-      className="absolute -bottom-16 right-0 -right-32 -z-10 overflow-hidden sm:-right-28 sm:top-48 sm:block"
+      className="absolute top-72 right-0 -right-32 -z-10 overflow-hidden sm:-right-28 sm:top-48 sm:block"
       aria-hidden="true"
     >
       <svg

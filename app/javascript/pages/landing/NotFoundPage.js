@@ -4,7 +4,7 @@ import usePageTitle from "../../hooks/usePageTitle"
 import MissingPageImg from "../../images/404.png"
 
 const NotFoundPage = () => {
-  const PageTitle = usePageTitle("Smol link not found")
+  const { PageTitle } = usePageTitle("Smol link not found")
 
   return (
     <Container>

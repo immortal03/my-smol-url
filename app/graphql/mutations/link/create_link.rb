@@ -15,13 +15,13 @@ class Mutations::Link::CreateLink < Mutations::BaseMutation
 
         response[:message] = {
           type: "success",
-          message: "Successfully smolified your URL!"
+          title: "Your link has been smolified and copied to the clipboard 🙌"
         }
         response[:link] = link
       else
         response[:message] = {
           type: "error",
-          message: "Failed to smolify your URL!",
+          title: "Failed to smolify your URL 😭",
           description: link.errors.full_messages
         }
       end

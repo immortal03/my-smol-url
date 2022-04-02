@@ -18,6 +18,7 @@ const LandingApp = () => {
             <Route path="/:slug" element={<NotFoundPage />} />
             <Route path="/analytics" element={<AnalyticsIndexPage />} exact />
             <Route path="/analytics/:slug" element={<LinkAnalyticsPage />} />
+            <Route path="/page-missing" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

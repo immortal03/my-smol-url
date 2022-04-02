@@ -2,24 +2,25 @@ import React, { useEffect, useState, useRef } from "react"
 import { useMutation } from "@apollo/client"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import SmolDataview from "./SmolDataview"
-import { SmolifyUrl } from "../../graphql/queries"
-import { CheckCircleIcon } from "@heroicons/react/solid"
 import Alert from "../../components/Alert"
+import { SmolifyUrl } from "../../graphql/queries"
+import { copyToClipboard } from "../../utils/clipboard"
+import SmolResult from "./SmolResult"
 
 const SmolifyForm = () => {
   const [state, setState] = useState({})
-  const { longUrl, customSlug } = state
   const [dataState, setDataState] = useState(null)
-  const [errors, setErrors] = useState(null)
+  const [link, setLink] = useState(null)
+  const [message, setMessage] = useState(null)
   const urlInputRef = useRef(null)
 
-  const [smolifyUrl, { data, loading: smolifying }] = useMutation(SmolifyUrl)
+  const [smolifyUrl, { loading: smolifying }] = useMutation(SmolifyUrl)
+  const { longUrl, customSlug } = state
 
   useEffect(() => {
     document.addEventListener("keydown", handleSlashKeyFocus)
 
-    return () => document.addEventListener("keydown", handleSlashKeyFocus)
+    return () => document.removeEventListener("keydown", handleSlashKeyFocus)
   }, [])
 
   const handleSlashKeyFocus = (e) => {
@@ -29,8 +30,12 @@ const SmolifyForm = () => {
     }
   }
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
+    if (dataState) setDataState(null)
+    if (message) setMessage(null)
+
     setState({ ...state, [e.target.name]: e.target.value })
+  }
 
   const parseLinkViewData = (link) => {
     let viewData = []
@@ -59,35 +64,39 @@ const SmolifyForm = () => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <form
+        className="space-y-6"
         onSubmit={(e) => {
           e.preventDefault()
-          setErrors(null)
+          setMessage(null)
 
           smolifyUrl({
             variables: { url: longUrl, customSlug: customSlug },
           }).then(({ data }) => {
             const { message, link } = data.createLink
+            setMessage(message)
 
             if (message.type === "success") {
               setState({})
               setDataState(parseLinkViewData(link))
-            } else if (message.type === "error") {
-              setErrors(message.description)
+              setLink(link)
+
+              copyToClipboard(link.smolUrl, false)
+              urlInputRef.current.blur()
             }
           })
         }}
-        className="space-y-6"
       >
         <Input
           type="url"
           name="longUrl"
           label="Enter Long URL"
-          placeholder="e.g. https://www.mysmolurl.com"
+          placeholder="e.g. https://smolurl.me"
           value={longUrl}
           onChange={handleChange}
           inputRef={urlInputRef}
+          keyboardShortcut="/"
           required
         />
 
@@ -98,35 +107,20 @@ const SmolifyForm = () => {
           value={customSlug}
         />
 
-        <div>
-          <Button
-            type="submit"
-            loading={smolifying}
-            loadingText="Smolifying..."
-            fullWidth
-          >
-            <span className="mr-4">🤏</span>Smolify URL!
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          loading={smolifying}
+          loadingText="Smolifying..."
+          fullWidth
+        >
+          <span className="mr-4">🤏</span>Smolify URL!
+        </Button>
       </form>
 
-      {errors ? (
-        <Alert
-          type="error"
-          className="mt-6"
-          title="Failed to smolify your URL 😭"
-          description={errors}
-        />
-      ) : dataState ? (
-        <Alert
-          type="success"
-          className="mt-6"
-          title="Your link has been smolified 🙌 &nbsp; Check out your smolified link below."
-        />
-      ) : null}
+      {message && <Alert className="mt-6" {...message} />}
 
-      {dataState && <SmolDataview dataState={dataState} />}
-    </div>
+      <SmolResult link={link} />
+    </React.Fragment>
   )
 }
 

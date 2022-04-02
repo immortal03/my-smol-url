@@ -61,4 +61,15 @@ const RetrieveLink = gql`
   }
 `
 
-export { SmolifyUrl, RetrieveLinksWithConnection, RetrieveLink }
+const RetrieveChartClicksByDays = gql`
+  query RetrieveChartClicksByDays($slug: String!, $days: Int) {
+    retrieveChartClicksByDays(slug: $slug, days: $days)
+  }
+`
+
+export {
+  SmolifyUrl,
+  RetrieveLinksWithConnection,
+  RetrieveLink,
+  RetrieveChartClicksByDays,
+}

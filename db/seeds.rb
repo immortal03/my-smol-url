@@ -1,7 +1,42 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# Sample data for dev env usage
+SAMPLE_COUNTRIES = %w[Singapore Malaysia Indonesia Thailand China Australia Japan Korea].freeze
+SAMPLE_DEVICES = ["iPhone 13 Pro Max", "iPhone 13 Pro", "Galaxy S22", "iPhone 12 Pro Max", "Huawei P30", "OnePlus 10", "Nokia 3380"].freeze
+SAMPLE_BROWSERS = ["Chrome", "Firefox", "Safari", "Edge", "Opera", "Internet Explorer", "Netscape", "Chromium"].freeze
+
+hash = [
+  {
+    url: "https://www.coingecko.com/",
+    page_title: "Cryptocurrency Prices, Charts, and Crypto Market Cap | CoinGecko"
+  },
+  {
+    url: "https://www.example.com/",
+    page_title: "Example Page!"
+  },
+  {
+    url: "https://twitter.com/",
+    page_title: "Twitter Home!"
+  }
+]
+
+hash.each do |data|
+  link = Link.new(data)
+  link.assign_slug
+  link.save!
+
+  31.times do |n|
+    rand(20..100).times do
+      link.click_events.create(
+        browser: SAMPLE_BROWSERS.sample,
+        device: SAMPLE_DEVICES.sample,
+        country: SAMPLE_COUNTRIES.sample,
+        ip_address: Faker::Internet.ip_v4_address,
+        event_at: Faker::Time.between(
+          from: (Time.zone.now - (n - 1).days).beginning_of_day,
+          to: (Time.zone.now - (n - 1).days).end_of_day
+        )
+      )
+
+      link.update(clicks_count: link.clicks_count + 1)
+    end
+  end
+end

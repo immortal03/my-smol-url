@@ -99,7 +99,7 @@ NavbarWrapper.propTypes = {
 
 const NavLinks = ({ isMobile = false }) => {
   const linkClass = isMobile
-    ? "block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+    ? "block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800"
     : "font-medium text-dark hover:bg-slate-200 p-2 rounded-md"
 
   return (

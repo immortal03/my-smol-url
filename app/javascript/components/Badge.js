@@ -12,6 +12,8 @@ const Badge = ({ children, color = "primary", size = "normal" }) => {
       ? "bg-slate-200 text-slate-700"
       : color === "blue"
       ? "bg-blue-200 text-blue-500"
+      : color === "orange"
+      ? "bg-orange-200 text-orange-500"
       : null
 
   const sizeClass =

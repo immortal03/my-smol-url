@@ -49,7 +49,7 @@ const Alert = ({ type, title, description, className }) => {
               {typeof description === "string" ? (
                 <p>{description}</p>
               ) : typeof description === "object" ? (
-                <ul>
+                <ul className="list-disc">
                   {description.map((message, index) => (
                     <li key={`error-${index}`}>{message}</li>
                   ))}

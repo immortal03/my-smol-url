@@ -40,3 +40,6 @@
 yarn-debug.log*
 .yarn-integrity
 .idea/*
+
+.yarnrc
+.yarn/releases/yarn-1.22.17.cjs

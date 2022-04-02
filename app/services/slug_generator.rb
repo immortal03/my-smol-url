@@ -1,7 +1,7 @@
 class SlugGenerator < ApplicationService
   attr_reader :length
 
-  def initialize(length: 8)
+  def initialize(length: 10)
     raise ArgumentError unless length.is_a?(Integer)
 
     @length = length
@@ -15,7 +15,11 @@ class SlugGenerator < ApplicationService
       @length > 15 ? 15 : @length
     end
 
-    o = [("a".."z"), ("A".."Z"), (0..9)].map(&:to_a).flatten
-    (0...count).map { o[rand(o.length)] }.join
+    # https://apidock.com/ruby/SecureRandom/urlsafe_base64/class
+    # SecureRandom.urlsafe_base64 defaulted to 16 bytes length
+    # Number of elements available a-z, A-Z, 0-9, -, _
+    # Number of combinations using 8 characters 10,639,125,640
+    # Number of combinations using 10 characters 621,324,937,376
+    SecureRandom.urlsafe_base64.first(count)
   end
 end

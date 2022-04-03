@@ -18,7 +18,7 @@ class LandingController < ApplicationController
 
       redirect_to(link.url, allow_other_host: true)
     else
-      render(:index)
+      render :index, status: :not_found
     end
   end
 end

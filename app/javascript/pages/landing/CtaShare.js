@@ -35,14 +35,12 @@ const CtaShare = ({ url, analyticsUrl, className, showCopy = false }) => {
           icon={<QrcodeIcon />}
           onClick={() => downloadQrCode(url)}
         >
-          <span className="hidden lg:inline">Share QR</span>
-          <span className="inline lg:hidden">QR</span>
+          QR
         </Button>
 
         <a href={`mailto:?subject=Check out my website!&body=${url}`}>
           <Button className="shadow-none" color="tertiary" icon={<MailIcon />}>
-            <span className="hidden lg:inline">Share via Email</span>
-            <span className="inline lg:hidden">Email</span>
+            Email
           </Button>
         </a>
 

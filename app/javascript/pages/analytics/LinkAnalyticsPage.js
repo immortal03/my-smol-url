@@ -56,7 +56,7 @@ const LinkAnalyticsPage = () => {
           <div className="col-span-12 mt-2 flex w-full flex-col items-baseline justify-between sm:flex-row sm:items-center md:mx-auto">
             <div className="mt-4 w-full">
               {linkData.smolUrl || linkData.smolUrlDisplay ? (
-                <div className="flex flex-row flex-col items-center items-baseline justify-between gap-4">
+                <div className="flex flex-row flex-col items-center items-baseline justify-between gap-4 lg:flex-row">
                   <Badge color="orange" size="large">
                     <span className="mr-2">
                       <img src={LogoImg} className="w-20" />

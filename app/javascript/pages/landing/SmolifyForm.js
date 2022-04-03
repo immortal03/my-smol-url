@@ -35,6 +35,7 @@ const SmolifyForm = () => {
     if (message) setMessage(null)
 
     setState({ ...state, [e.target.name]: e.target.value })
+    setLink(null)
   }
 
   const parseLinkViewData = (link) => {

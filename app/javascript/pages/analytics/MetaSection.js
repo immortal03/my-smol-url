@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 import { useLazyQuery } from "@apollo/client"
 import { useVirtual } from "react-virtual"
 import { uniq } from "lodash"
@@ -6,6 +7,8 @@ import MetaChart from "./MetaChart"
 import Button from "../../components/Button"
 import { RetrieveClickEventsWithConnection } from "../../graphql/queries"
 import { formatDateTime } from "../../utils/date-helper"
+import { ChartPieIcon, TableIcon } from "@heroicons/react/solid"
+import classNames from "classnames"
 
 const MetaSection = ({ linkData }) => {
   const [viewType, setViewType] = useState("chart")
@@ -67,6 +70,7 @@ const MetaSection = ({ linkData }) => {
           <Button
             color={viewType === "chart" ? "primary" : "secondary"}
             onClick={() => setViewType("chart")}
+            icon={<ChartPieIcon />}
           >
             Chart View
           </Button>
@@ -82,6 +86,7 @@ const MetaSection = ({ linkData }) => {
                 setPageInfo(data.retrieveClickEventsWithConnection.pageInfo)
               })
             }}
+            icon={<TableIcon />}
           >
             Table View
           </Button>
@@ -89,7 +94,7 @@ const MetaSection = ({ linkData }) => {
       </div>
 
       {viewType === "chart" ? (
-        <div className="sm-divide-y-0 grid grid-cols-12 divide-x-0 divide-y sm:divide-x">
+        <div className="sm-divide-y-0 grid grid-cols-12 divide-x-0">
           {linkData?.visualData &&
             Object.keys(linkData.visualData).map((visualName, index) => {
               if (visualName === "linkClicks") return null
@@ -98,11 +103,12 @@ const MetaSection = ({ linkData }) => {
                 <MetaChart
                   key={visualName}
                   data={linkData.visualData[visualName]}
-                  className={
+                  className={classNames(
                     index === Object.keys(linkData.visualData).length - 1
                       ? "col-span-12 px-6 py-4 sm:col-span-12"
-                      : "md:col-span-6"
-                  }
+                      : "border-b md:col-span-6",
+                    { ["border-r-0 md:border-r"]: index === 1 }
+                  )}
                 />
               )
             })}
@@ -110,7 +116,7 @@ const MetaSection = ({ linkData }) => {
       ) : (
         <div
           ref={parentRef}
-          className="col-span-12 w-full divide-y overflow-auto"
+          className="w-full divide-y overflow-auto"
           onScroll={handleScroll}
           style={{
             height: clickEvents.length > 0 ? "auto" : "130px",
@@ -190,6 +196,10 @@ const MetaSection = ({ linkData }) => {
       )}
     </div>
   )
+}
+
+MetaSection.propTypes = {
+  linkData: PropTypes.object,
 }
 
 export default MetaSection

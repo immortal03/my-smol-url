@@ -3,9 +3,9 @@ import { useMutation } from "@apollo/client"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 import Alert from "../../components/Alert"
+import SmolResult from "./SmolResult"
 import { SmolifyUrl } from "../../graphql/queries"
 import { copyToClipboard } from "../../utils/clipboard"
-import SmolResult from "./SmolResult"
 
 const SmolifyForm = () => {
   const [state, setState] = useState({})

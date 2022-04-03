@@ -42,7 +42,12 @@ const LinkAnalyticsPage = () => {
           <div className="col-span-12 flex w-full sm:items-center md:mx-auto lg:text-left">
             {linkData.pageTitle || linkData.url ? (
               <h1 className="font-source-sans text-3xl font-extrabold tracking-tight text-slate-800 sm:leading-none lg:text-4xl xl:text-5xl">
-                <span>{linkData.pageTitle || linkData.url}</span>
+                <span
+                  className="line-clamp-3"
+                  title={linkData.pageTitle || linkData.url}
+                >
+                  {linkData.pageTitle || linkData.url}
+                </span>
               </h1>
             ) : (
               <div className="flex flex-1 flex-col gap-2">
@@ -59,7 +64,7 @@ const LinkAnalyticsPage = () => {
                 <div className="flex flex-row flex-col items-center items-baseline justify-between gap-4 lg:flex-row">
                   <Badge color="orange" size="large">
                     <span className="mr-2">
-                      <img src={LogoImg} className="w-20" />
+                      <img src={LogoImg} className="w-20" alt="SmolURL logo" />
                     </span>
 
                     <TargetBlankLink
@@ -132,9 +137,7 @@ const LinkAnalyticsPage = () => {
               ))}
           </dl>
 
-          <div className="divide-y sm:overflow-hidden">
-            <ClicksBarChart linkData={linkData} />
-          </div>
+          <ClicksBarChart linkData={linkData} />
         </div>
 
         <MetaSection linkData={linkData} />

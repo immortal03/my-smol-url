@@ -2,9 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import TargetBlankLink from "../../components/TargetBlankLink"
 import Button from "../../components/Button"
+import CtaShare from "./CtaShare"
 import { ClipboardCopyIcon } from "@heroicons/react/outline"
 import { copyToClipboard } from "../../utils/clipboard"
-import CtaShare from "./CtaShare"
 
 const SmolResult = ({ link }) => {
   if (!link) return null
@@ -50,7 +50,7 @@ const SmolResult = ({ link }) => {
 }
 
 SmolResult.propTypes = {
-  dataState: PropTypes.array,
+  link: PropTypes.object,
 }
 
 export default SmolResult

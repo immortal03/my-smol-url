@@ -1,9 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Container from "../../components/Container"
+import Card from "../../components/Card"
 import usePageTitle from "../../hooks/usePageTitle"
 import MissingPageImg from "../../images/404.png"
-import Card from "../../components/Card"
-import { Link } from "react-router-dom"
 
 const NotFoundPage = () => {
   const { PageTitle } = usePageTitle("Smol link not found")

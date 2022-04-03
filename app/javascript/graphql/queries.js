@@ -44,17 +44,10 @@ const RetrieveLinksWithConnection = gql`
 `
 
 const RetrieveLink = gql`
+  ${LinkFields}
   query RetrieveLink($slug: String!) {
     retrieveLink(slug: $slug) {
-      id
-      url
-      slug
-      pageTitle
-      smolUrl
-      smolUrlDisplay
-      clicksCount
-      createdAt
-      updatedAt
+      ...LinkFields
       statisticsData
       visualData
     }

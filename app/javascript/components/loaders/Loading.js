@@ -43,9 +43,4 @@ const Spinner = () => {
   )
 }
 
-Spinner.propTypes = {
-  className: PropTypes.string,
-  text: PropTypes.string,
-}
-
 export default Loading

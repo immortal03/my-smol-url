@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import classNames from "classnames"
 import { useQuery } from "@apollo/client"
 import { Link } from "react-router-dom"
-import { RetrieveLinksWithConnection } from "../../graphql/queries"
 import { LinkIcon, CursorClickIcon } from "@heroicons/react/outline"
 import TargetBlankLink from "../../components/TargetBlankLink"
 import Badge from "../../components/Badge"
-import Loading from "../../components/loaders/Loading"
-import LogoImg from "../../images/msu_logo.svg"
 import Button from "../../components/Button"
+import Loading from "../../components/loaders/Loading"
+import { RetrieveLinksWithConnection } from "../../graphql/queries"
+import LogoImg from "../../images/msu_logo.svg"
 
 const LinkIndexTable = () => {
   const [links, setLinks] = useState([])
@@ -103,10 +103,10 @@ const LinkIndexTable = () => {
 
                   <TCol className="font-medium text-gray-800">
                     <Link to={`/analytics/${slug}`}>
-                      <p className="max-w-sm truncate md:max-w-md">
+                      <p className="max-w-xs truncate md:max-w-md">
                         {pageTitle || url}
                       </p>
-                      <p className="max-w-sm truncate text-gray-400 underline decoration-dashed md:max-w-md">
+                      <p className="max-w-xs truncate text-gray-400 underline decoration-dashed md:max-w-md">
                         {url}
                       </p>
                     </Link>

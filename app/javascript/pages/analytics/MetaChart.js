@@ -9,9 +9,8 @@ const MetaChart = ({ className, data }) => {
   return (
     <div className={classNames("col-span-12 px-6 py-4", className)}>
       <div className="mb-6">
-        <h3 className="text-lg font-medium text-gray-800">
+        <h3 className="font-source-sans text-lg font-medium text-gray-800">
           {data.name}
-          {/*Clicks by <span className="font-bold">countries</span>*/}
         </h3>
       </div>
 

@@ -46,7 +46,6 @@ TargetBlankLink.propTypes = {
   url: PropTypes.string.isRequired,
   urlText: PropTypes.string,
   withIcon: PropTypes.bool,
-  customClass: PropTypes.string,
   customLinkClass: PropTypes.string,
   customIconClass: PropTypes.string,
 }

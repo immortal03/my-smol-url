@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useLazyQuery } from "@apollo/client"
 import { useParams } from "react-router-dom"
+import Button from "../../components/Button"
 import useBarChart from "../../hooks/useBarChart"
 import { formatDateTime } from "../../utils/date-helper"
-import Button from "../../components/Button"
 import { RetrieveChartClicksByDays } from "../../graphql/queries"
 
 const DAY_OPTIONS = [14, 30, 60]
@@ -29,7 +29,7 @@ const ClicksBarChart = ({ linkData }) => {
     <div className="relative px-6 py-4">
       <div className="mb-8 flex flex-col items-baseline justify-between sm:mb-14 md:flex-row md:items-center">
         <h3 className="text-lg font-medium text-gray-800">
-          Link clicks timeline
+          <span className="font-source-sans">Link clicks timeline</span>
           <span className="block text-xs text-gray-400">
             Last updated {formatDateTime(linkData.updatedAt) || "-"}
           </span>

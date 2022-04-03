@@ -14,7 +14,7 @@ const AnalyticsIndexPage = () => {
     <Container>
       <PageTitle />
 
-      <div className="col-span-12">
+      <div className="grid grid-cols-12">
         <div className="col-span-12 flex flex-col items-baseline justify-between md:flex-row md:items-center">
           <div>
             <h1 className="font-source-sans text-4xl font-bold tracking-tight text-slate-800 sm:leading-none lg:text-4xl xl:text-5xl">
@@ -36,7 +36,7 @@ const AnalyticsIndexPage = () => {
           </div>
         </div>
 
-        <div className="mt-8 lg:col-span-12 lg:mt-10">
+        <div className="col-span-12 mt-8 lg:mt-10">
           <Card>
             <LinkIndexTable />
           </Card>

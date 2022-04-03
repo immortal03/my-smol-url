@@ -202,6 +202,8 @@ GEM
     rack (2.2.3)
     rack-attack (6.6.0)
       rack (>= 1.0, < 3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-proxy (0.7.2)
       rack
     rack-test (1.1.0)
@@ -338,6 +340,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   rack-attack (~> 6.6.0)
+  rack-cors (~> 1.1.1)
   rails (~> 7.0.2, >= 7.0.2.3)
   redis (~> 4.0)
   rubocop

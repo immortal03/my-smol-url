@@ -65,6 +65,7 @@ gem "geocoder", "~> 1.7.5"
 gem "sidekiq", "~> 6.4"
 gem "metainspector", "~> 5.11.2"
 gem "validate_url", "~> 1.0.2"
+gem "rack-cors", "~> 1.1.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

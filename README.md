@@ -227,3 +227,11 @@ This application is configured to deploy using [dokku](https://dokku.com/) on EC
 ### Deployment Issues
 
 There is currently an [issue](https://github.com/heroku/heroku-buildpack-ruby/issues/1294) with heroku ruby buildpacks that prevents the application from deploying through dokku. You will have to clear your build cache everytime you push to production using `dokku repo:purge-cache smol-url`.
+
+## Enhancements
+
+- Use proxies for page title scraping
+- Display a snapshot of the page in the analytics page
+- Allow users to select length of the URL slug
+- Allow users to include utm parameters in the URL slug
+- Add notification systems (e.g. email, push notification) to notify users of certain click events threshold hit

@@ -21,13 +21,18 @@ class EventHandler::RecordClickEvent < ApplicationService
       # Get IP info using geocoder
       # https://github.com/alexreisner/geocoder
       # 5 minutes caching in case transaction fails / dup and rerun
+      # TODO: Cache using geocoder gem's
       geolocation_data = Rails.cache.fetch("/geocoder/#{@ip}", expires_in: 5.minutes) do
         results = Geocoder.search(@ip)
         result = results.first
 
-        {country: result&.country || "Unknown"}
+        {
+          country: result&.country || "Unknown",
+          city: result&.city || "Unknown",
+          region: result&.region || "Unknown"
+        }
       rescue
-        {country: "Unknown"}
+        {country: "Unknown", city: "Unknown", region: "Unknown"}
       end
 
       # Get device, browser info using browser gem

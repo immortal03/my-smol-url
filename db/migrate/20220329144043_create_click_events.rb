@@ -2,6 +2,8 @@ class CreateClickEvents < ActiveRecord::Migration[7.0]
   def change
     create_table :click_events, id: :uuid do |t|
       t.string :ip_address
+      t.string :city
+      t.string :region
       t.string :country
       t.string :browser
       t.string :device

@@ -87,6 +87,8 @@ const RetrieveClickEventsWithConnection = gql`
       nodes {
         id
         ipAddress
+        city
+        region
         country
         device
         browser

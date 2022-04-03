@@ -29,10 +29,11 @@ hash.each do |data|
         browser: SAMPLE_BROWSERS.sample,
         device: SAMPLE_DEVICES.sample,
         country: SAMPLE_COUNTRIES.sample,
+        city: Faker::Address.city,
         ip_address: Faker::Internet.ip_v4_address,
         event_at: Faker::Time.between(
-          from: (Time.zone.now - (n - 1).days).beginning_of_day,
-          to: (Time.zone.now - (n - 1).days).end_of_day
+          from: (Time.zone.now - n.days).beginning_of_day,
+          to: n == 0 ? Time.zone.now : (Time.zone.now - n.days).end_of_day
         )
       )
 

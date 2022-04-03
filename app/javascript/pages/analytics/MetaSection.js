@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { useLazyQuery } from "@apollo/client"
 import { useVirtual } from "react-virtual"
+import { uniq } from "lodash"
 import MetaChart from "./MetaChart"
 import Button from "../../components/Button"
 import { RetrieveClickEventsWithConnection } from "../../graphql/queries"
-import Loading from "../../components/loaders/Loading"
 import { formatDateTime } from "../../utils/date-helper"
 
 const MetaSection = ({ linkData }) => {
@@ -23,13 +23,20 @@ const MetaSection = ({ linkData }) => {
       () => (window.innerWidth <= 768 ? 60 : 40),
       [window.innerWidth]
     ),
-    overscan: 5,
+    overscan: 30,
   })
+
+  const displayLocation = ({ city, region, country }) => {
+    return uniq([city, region, country])
+      .filter((i) => !!i)
+      .join(", ")
+  }
 
   const handleScroll = ({ currentTarget }) => {
     if (
       currentTarget.scrollTop + currentTarget.clientHeight >=
-      currentTarget.scrollHeight
+        currentTarget.scrollHeight &&
+      pageInfo.hasNextPage
     ) {
       fetchMore({
         variables: {
@@ -47,28 +54,38 @@ const MetaSection = ({ linkData }) => {
 
   return (
     <div className="col-span-12 divide-y rounded-xl bg-white shadow">
-      <div className="flex justify-center gap-2 p-4">
-        <Button
-          color={viewType === "chart" ? "primary" : "secondary"}
-          onClick={() => setViewType("chart")}
-        >
-          Charts View
-        </Button>
+      <div className="flex flex-col items-baseline justify-between gap-2 p-4 lg:flex-row">
+        <span>
+          Showing clicks from&nbsp;
+          <b>
+            {formatDateTime(linkData.createdAt, "MMM dd, yyyy")} -{" "}
+            {formatDateTime(linkData.updatedAt, "MMM dd, yyyy")}
+          </b>
+        </span>
 
-        <Button
-          color={viewType === "table" ? "primary" : "secondary"}
-          onClick={() => {
-            setViewType("table")
-            retrieveClickEvents({
-              variables: { linkId: linkData.id },
-            }).then(({ data }) => {
-              setClickEvents(data.retrieveClickEventsWithConnection.nodes)
-              setPageInfo(data.retrieveClickEventsWithConnection.pageInfo)
-            })
-          }}
-        >
-          Table View
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            color={viewType === "chart" ? "primary" : "secondary"}
+            onClick={() => setViewType("chart")}
+          >
+            Chart View
+          </Button>
+
+          <Button
+            color={viewType === "table" ? "primary" : "secondary"}
+            onClick={() => {
+              setViewType("table")
+              retrieveClickEvents({
+                variables: { linkId: linkData.id },
+              }).then(({ data }) => {
+                setClickEvents(data.retrieveClickEventsWithConnection.nodes)
+                setPageInfo(data.retrieveClickEventsWithConnection.pageInfo)
+              })
+            }}
+          >
+            Table View
+          </Button>
+        </div>
       </div>
 
       {viewType === "chart" ? (
@@ -96,27 +113,31 @@ const MetaSection = ({ linkData }) => {
           className="col-span-12 w-full divide-y overflow-auto"
           onScroll={handleScroll}
           style={{
-            height: clickEvents.length > 0 ? "800px" : "150px",
+            height: clickEvents.length > 0 ? "auto" : "130px",
+            maxHeight: "800px",
           }}
         >
-          <div className="col-span-12 flex flex-row divide-x">
-            <div className="col-span-3 flex-1 px-4 py-4 font-medium text-gray-500">
+          <div className="grid grid-cols-5 divide-x">
+            <div className="col-span-5 px-4 py-4 font-medium text-gray-500 md:col-span-1">
               <span className="hidden md:block">🕐 Timestamp</span>
               <span className="block md:hidden">🖱 Click Details</span>
             </div>
-            <div className="col-span-3 hidden flex-1 px-4 py-4 font-medium text-gray-500 md:block">
-              🏔 Country
+
+            <div className="col-span-2 hidden px-4 py-4 font-medium text-gray-500 md:block">
+              🏔 Location
             </div>
-            <div className="col-span-3 hidden flex-1 px-4 py-4 font-medium text-gray-500 md:block">
+
+            <div className="hidden px-4 py-4 font-medium text-gray-500 md:block">
               📱 Browser
             </div>
-            <div className="col-span-3 hidden flex-1 px-4 py-4 font-medium text-gray-500 md:block">
+
+            <div className="hidden px-4 py-4 font-medium text-gray-500 md:block">
               💻 Device
             </div>
           </div>
 
           <div
-            className="relative w-full"
+            className="relative w-full divide-y "
             style={{
               height: `${rowVirtualizer.totalSize}px`,
             }}
@@ -124,39 +145,37 @@ const MetaSection = ({ linkData }) => {
             {clickEvents.length > 0 ? (
               rowVirtualizer.virtualItems.map((virtualRow) => {
                 const clickEvent = clickEvents[virtualRow.index]
+                const { eventAt, city, region, country, device, browser } =
+                  clickEvent
 
                 return (
                   <div
                     key={virtualRow.index}
-                    className="absolute top-0 left-0 w-full"
+                    className="absolute top-0 left-0 w-full text-sm"
                     style={{
                       height: `${virtualRow.size}px`,
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
                   >
-                    <div className="text-md col-span-12 flex flex-row divide-x">
-                      <div className="col-span-3 flex-1 px-4 py-3 md:block">
+                    <div className="text-md flex grid grid-cols-5 flex-row divide-x">
+                      <div className="col-span-5 px-3 py-3 md:col-span-1 md:block">
                         <span className="text-gray-500">
-                          {formatDateTime(clickEvent.eventAt, "dd/MM/yyyy p")}
+                          {formatDateTime(eventAt, "dd/MM/yyyy p")}
                         </span>
 
-                        <div className="md:hidden">
-                          {clickEvent.country} | {clickEvent.browser} |{" "}
-                          {clickEvent.device}
+                        <div className="mt md:hidden">
+                          🏔 {displayLocation({ city, region, country })} · 📱{" "}
+                          {browser} · 💻 {device}
                         </div>
                       </div>
 
-                      <div className="col-span-3 hidden flex-1 px-4 py-3 md:block">
-                        {clickEvent.country}
+                      <div className="col-span-2 hidden px-3 py-3 md:block">
+                        {displayLocation({ city, region, country })}
                       </div>
 
-                      <div className="col-span-3 hidden flex-1 px-4 py-3 md:block">
-                        {clickEvent.browser}
-                      </div>
+                      <div className="hidden px-3 py-3 md:block">{browser}</div>
 
-                      <div className="col-span-3 hidden flex-1 px-4 py-3 md:block">
-                        {clickEvent.device}
-                      </div>
+                      <div className="hidden px-3 py-3 md:block">{device}</div>
                     </div>
                   </div>
                 )

@@ -1,4 +1,6 @@
 class LandingController < ApplicationController
+  before_action :render_redirect, only: :redirector
+
   def index
   end
 
@@ -20,5 +22,11 @@ class LandingController < ApplicationController
     else
       render :index, status: :not_found
     end
+  end
+
+  private
+
+  def render_redirect
+    render :index if request.path.include?("analytics")
   end
 end

@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useLazyQuery } from "@apollo/client"
+import { useParams } from "react-router-dom"
 import useBarChart from "../../hooks/useBarChart"
 import { formatDateTime } from "../../utils/date-helper"
 import Button from "../../components/Button"
 import { RetrieveChartClicksByDays } from "../../graphql/queries"
-import { useParams } from "react-router-dom"
 
 const DAY_OPTIONS = [14, 30, 60]
 

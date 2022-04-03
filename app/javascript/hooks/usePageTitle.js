@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Helmet } from "react-helmet"
 
-const usePageTitle = (pageTitle = "My Smol URL") => {
+const usePageTitle = (pageTitle = "SmolURL") => {
   if (!pageTitle) throw new Error("You must provide a page title")
 
   const [title, setTitle] = useState(pageTitle)

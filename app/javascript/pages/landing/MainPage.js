@@ -8,7 +8,9 @@ import BackgroundPattern2 from "../../components/patterns/BackgroundPattern2"
 import Card from "../../components/Card"
 
 const MainPage = () => {
-  const { PageTitle } = usePageTitle("My Smol URL - Shorten your URL!")
+  const { PageTitle } = usePageTitle(
+    "SmolURL - Shorten your URLs & Track Click Events!"
+  )
 
   return (
     <Container>

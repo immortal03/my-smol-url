@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 import Card from "../../components/Card"
 
 const AnalyticsIndexPage = () => {
-  const { PageTitle } = usePageTitle("Analytics - My Smol URL")
+  const { PageTitle } = usePageTitle("Analytics - SmolURL")
 
   return (
     <Container>

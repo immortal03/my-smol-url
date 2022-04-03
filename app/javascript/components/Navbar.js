@@ -21,11 +21,11 @@ const Navbar = () => {
           <div className="flex flex-1 items-center">
             <div className="flex w-full items-center justify-between md:w-auto">
               <Link to="/">
-                <span className="sr-only">My Smol URL</span>
+                <span className="sr-only">SmolURL</span>
                 <img
                   className="h-8 w-auto sm:h-10"
                   src={LogoImg}
-                  alt="My Smol URL logo"
+                  alt="SmolURL logo"
                 />
               </Link>
 
@@ -62,7 +62,7 @@ const Navbar = () => {
                   <img
                     className="h-8 w-auto"
                     src={LogoImg}
-                    alt="My Smol URL logo"
+                    alt="SmolURL logo"
                   />
                 </div>
 

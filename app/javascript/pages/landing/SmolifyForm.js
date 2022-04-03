@@ -50,7 +50,7 @@ const SmolifyForm = () => {
     viewData.push({
       url: link.smolUrl,
       urlText: link.smolUrlDisplay,
-      label: "Smol URL",
+      label: "SmolURL",
       external: true,
     })
 

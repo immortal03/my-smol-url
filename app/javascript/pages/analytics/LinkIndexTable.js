@@ -3,11 +3,7 @@ import classNames from "classnames"
 import { useQuery } from "@apollo/client"
 import { Link } from "react-router-dom"
 import { RetrieveLinksWithConnection } from "../../graphql/queries"
-import {
-  LinkIcon,
-  CursorClickIcon,
-  ClipboardCopyIcon,
-} from "@heroicons/react/outline"
+import { LinkIcon, CursorClickIcon } from "@heroicons/react/outline"
 import TargetBlankLink from "../../components/TargetBlankLink"
 import Badge from "../../components/Badge"
 import Loading from "../../components/loaders/Loading"
@@ -18,6 +14,7 @@ const LinkIndexTable = () => {
   const [links, setLinks] = useState([])
   const [pageInfo, setPageInfo] = useState({})
   const { loading, fetchMore } = useQuery(RetrieveLinksWithConnection, {
+    notifyOnNetworkStatusChange: true,
     onCompleted: ({ retrieveLinksWithConnection }) => {
       setPageInfo(retrieveLinksWithConnection.pageInfo)
       setLinks([...retrieveLinksWithConnection.nodes])
@@ -70,7 +67,7 @@ const LinkIndexTable = () => {
             </THead>
 
             <THead className="hidden lg:table-cell">
-              <img src={LogoImg} className="h-4" alt="My Smol URL" />
+              <img src={LogoImg} className="h-4" alt="SmolURL" />
             </THead>
 
             <THead className="hidden lg:table-cell">
@@ -105,17 +102,17 @@ const LinkIndexTable = () => {
 
                   <TCol className="font-medium text-gray-800">
                     <Link to={`/analytics/${slug}`}>
-                      <p className="max-w-md truncate">{pageTitle || url}</p>
-                      <p className="max-w-md truncate text-gray-400 underline decoration-dashed">
+                      <p className="max-w-sm truncate md:max-w-md">
+                        {pageTitle || url}
+                      </p>
+                      <p className="max-w-sm truncate text-gray-400 underline decoration-dashed md:max-w-md">
                         {url}
                       </p>
                     </Link>
 
-                    <dl className="font-normal lg:hidden">
-                      <dt className="sr-only">Title</dt>
+                    <dl className="mt-2 font-normal lg:hidden">
+                      <dt className="sr-only">SmolURL</dt>
                       <dd className="mt-1 flex items-center gap-2 truncate">
-                        <img src={LogoImg} className="h-3" alt="My Smol URL" />
-
                         <Badge>
                           <TargetBlankLink
                             url={smolUrl}
@@ -125,7 +122,7 @@ const LinkIndexTable = () => {
                           />
                         </Badge>
                       </dd>
-                      <dd className="mt-1 truncate text-gray-500 sm:hidden">
+                      <dd className="mt-1 truncate text-gray-500">
                         Clicks: {clicksCount}
                       </dd>
                     </dl>
@@ -149,7 +146,7 @@ const LinkIndexTable = () => {
             })
           ) : (
             <tr>
-              <td colSpan={3} className="py-4 text-center">
+              <td colSpan={4} className="py-4 text-center">
                 {loading ? (
                   <Loading
                     className="justify-center"

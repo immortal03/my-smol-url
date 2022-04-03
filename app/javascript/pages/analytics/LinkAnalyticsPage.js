@@ -7,16 +7,16 @@ import TargetBlankLink from "../../components/TargetBlankLink"
 import usePageTitle from "../../hooks/usePageTitle"
 import { formatDateTime } from "../../utils/date-helper"
 import ClicksBarChart from "./ClicksBarChart"
-import MetaChart from "./MetaChart"
 import LogoImg from "../../images/msu_logo.svg"
 import { RetrieveLink } from "../../graphql/queries"
 import CtaShare from "../landing/CtaShare"
+import MetaSection from "./MetaSection"
 
 const LinkAnalyticsPage = () => {
   const { slug } = useParams()
   const navigate = useNavigate()
   const [linkData, setLinkData] = useState({})
-  const { PageTitle, setTitle } = usePageTitle("Analytics - My Smol URL")
+  const { PageTitle, setTitle } = usePageTitle("Analytics - SmolURL")
 
   useQuery(RetrieveLink, {
     variables: { slug: slug },
@@ -24,9 +24,7 @@ const LinkAnalyticsPage = () => {
     onCompleted: ({ retrieveLink }) => {
       if (!retrieveLink) navigate("/page-missing")
 
-      setTitle(
-        `${retrieveLink?.pageTitle || retrieveLink?.smolUrl} - My Smol URL`
-      )
+      setTitle(`${retrieveLink?.pageTitle || retrieveLink?.smolUrl} - SmolURL`)
       setLinkData(retrieveLink || {})
     },
   })
@@ -39,9 +37,9 @@ const LinkAnalyticsPage = () => {
     <Container>
       <PageTitle />
 
-      <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+      <div className="grid grid-cols-12 gap-4 lg:gap-6">
         <div className="col-span-12">
-          <div className="w-full sm:items-center md:mx-auto lg:col-span-12 lg:flex lg:text-left">
+          <div className="col-span-12 flex w-full sm:items-center md:mx-auto lg:text-left">
             {linkData.pageTitle || linkData.url ? (
               <h1 className="font-source-sans text-3xl font-extrabold tracking-tight text-slate-800 sm:leading-none lg:text-4xl xl:text-5xl">
                 <span>{linkData.pageTitle || linkData.url}</span>
@@ -58,7 +56,7 @@ const LinkAnalyticsPage = () => {
           <div className="col-span-12 mt-2 flex w-full flex-col items-baseline justify-between sm:flex-row sm:items-center md:mx-auto">
             <div className="mt-4 w-full">
               {linkData.smolUrl || linkData.smolUrlDisplay ? (
-                <div className="flex flex-col items-baseline gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+                <div className="flex flex-row flex-col items-center items-baseline justify-between gap-4">
                   <Badge color="orange" size="large">
                     <span className="mr-2">
                       <img src={LogoImg} className="w-20" />
@@ -110,7 +108,7 @@ const LinkAnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="sm:mt-18 mt-10 divide-y rounded-xl bg-white shadow lg:col-span-12 lg:mt-0">
+        <div className="col-span-12 mt-4 divide-y rounded-xl bg-white shadow md:mt-2">
           <dl className="grid grid-cols-1 grid-cols-2 divide-y divide-gray-200 overflow-hidden md:divide-x lg:grid-cols-4 lg:divide-y-0">
             {linkData?.statisticsData &&
               linkData.statisticsData.map((item) => (
@@ -136,27 +134,10 @@ const LinkAnalyticsPage = () => {
 
           <div className="divide-y sm:overflow-hidden">
             <ClicksBarChart linkData={linkData} />
-
-            <div className="sm-divide-y-0 grid grid-cols-12 divide-x-0 divide-y sm:divide-x">
-              {linkData?.visualData &&
-                Object.keys(linkData.visualData).map((visualName, index) => {
-                  if (visualName === "linkClicks") return null
-
-                  return (
-                    <MetaChart
-                      key={visualName}
-                      data={linkData.visualData[visualName]}
-                      className={
-                        index === Object.keys(linkData.visualData).length - 1
-                          ? "col-span-12 px-6 py-4 sm:col-span-12"
-                          : "sm:col-span-6"
-                      }
-                    />
-                  )
-                })}
-            </div>
           </div>
         </div>
+
+        <MetaSection linkData={linkData} />
       </div>
     </Container>
   )

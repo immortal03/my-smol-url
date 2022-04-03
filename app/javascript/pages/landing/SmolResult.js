@@ -39,7 +39,11 @@ const SmolResult = ({ link }) => {
           />
         </div>
 
-        <CtaShare url={link.smolUrl} className="mt-4" />
+        <CtaShare
+          url={link.smolUrl}
+          analyticsUrl={`/analytics/${link.slug}`}
+          className="mt-4"
+        />
       </div>
     </div>
   )

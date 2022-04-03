@@ -28,6 +28,7 @@ const Button = ({
     warning:
       "bg-orange-500 text-orange-700 hover:bg-orange-600 focus:ring-orange-500",
     twitter: "bg-sky-400 text-white hover:bg-sky-500 focus:ring-sky-500",
+    analytics: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600",
   }
   const sizeStyles = {
     small: "px-2.5 py-1.5 text-xs",

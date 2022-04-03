@@ -1,8 +1,8 @@
 import { format, parseISO } from "date-fns"
 
-const formatDateTime = (str) => {
+const formatDateTime = (str, customFormat = "MMM dd, yyyy p") => {
   if (!str) return ""
-  return format(parseISO(str), "MMM dd, yyyy p")
+  return format(parseISO(str), customFormat)
 }
 
 export { formatDateTime }

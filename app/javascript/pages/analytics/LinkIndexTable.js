@@ -14,7 +14,8 @@ const LinkIndexTable = () => {
   const [links, setLinks] = useState([])
   const [pageInfo, setPageInfo] = useState({})
   const { loading, fetchMore } = useQuery(RetrieveLinksWithConnection, {
-    notifyOnNetworkStatusChange: true,
+    fetchPolicy: "cache-and-network",
+    skip: links.length > 0,
     onCompleted: ({ retrieveLinksWithConnection }) => {
       setPageInfo(retrieveLinksWithConnection.pageInfo)
       setLinks([...retrieveLinksWithConnection.nodes])

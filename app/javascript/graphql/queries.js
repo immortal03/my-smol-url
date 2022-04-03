@@ -67,9 +67,39 @@ const RetrieveChartClicksByDays = gql`
   }
 `
 
+const RetrieveClickEventsWithConnection = gql`
+  query RetrieveClickEventsWithConnection(
+    $linkId: String!
+    $first: Int = 30
+    $after: String
+  ) {
+    retrieveClickEventsWithConnection(
+      linkId: $linkId
+      first: $first
+      after: $after
+    ) {
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        endCursor
+        startCursor
+      }
+      nodes {
+        id
+        ipAddress
+        country
+        device
+        browser
+        eventAt
+      }
+    }
+  }
+`
+
 export {
   SmolifyUrl,
   RetrieveLinksWithConnection,
   RetrieveLink,
   RetrieveChartClicksByDays,
+  RetrieveClickEventsWithConnection,
 }

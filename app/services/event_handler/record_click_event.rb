@@ -21,7 +21,6 @@ class EventHandler::RecordClickEvent < ApplicationService
       # Get IP info using geocoder
       # https://github.com/alexreisner/geocoder
       # 5 minutes caching in case transaction fails / dup and rerun
-      # TODO: Cache using geocoder gem's
       geolocation_data = Rails.cache.fetch("/geocoder/#{@ip}", expires_in: 5.minutes) do
         results = Geocoder.search(@ip)
         result = results.first

@@ -132,11 +132,6 @@ module Link::ChartData
 
     labels_array = (from_date..to_date).to_a.map { |date| date.strftime("%b %d") }
 
-    # grouped_clicks_by_date = click_events.where(
-    #   event_at: from_date.beginning_of_day..to_date.end_of_day
-    # ).group_by { |r| r.event_at.to_date }
-
-    # TODO: Optimize this
     grouped_clicks_by_date = click_events.where(
       event_at: from_date.beginning_of_day..to_date.end_of_day
     ).group("DATE(event_at AT TIME ZONE 'UTC+8')").count

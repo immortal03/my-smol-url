@@ -14,7 +14,8 @@ To get the Rails application server running locally:
 - Install foreman `gem install foreman`
 - `rails db:create db:migrate` to make all database migrations
 - `rails db:seed` to seed the database (optional)
-- `rails credentials:edit` to generate master.key and credentials.yml
+- `rm config/credentials.yml.enc` to remove old credentials
+- `rails credentials:edit` to generate master.key and credentials.yml.enc
 - `./bin/dev` to start the local server
 - `./bin/webpack-dev-server` to start the webpack dev server (optional)
 
@@ -33,11 +34,14 @@ To get the Rails application server running locally:
 ## Package Dependencies
 
 - [@apollo/client](https://www.npmjs.com/package/@apollo/client) - GraphQL client integration for React
+- [@tailwindcss/line-clamp](https://www.npmjs.com/package/@tailwindcss/line-clamp) - A plugin that provides utilities for visually truncating text after a fixed number of lines
+- [@headlessui/react](https://www.npmjs.com/package/@headlessui/react) - UI components for React, designed to integrate beautifully with Tailwind CSS
+- [@heroicons/react](https://www.npmjs.com/package/@heroicons/react) - SVG icons package
 - [lodash](https://www.npmjs.com/package/lodash) - Modular utility library
-- [date-fns](https://github.com/cyu/rack-cors) - Date utility library
-- [chart.js](https://github.com/cyu/rack-cors) - Charting library
+- [date-fns](https://www.npmjs.com/package/date-fns) - Date utility library
+- [chart.js](https://www.npmjs.com/package/chart.js) - Charting library
 - [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2) - React wrapper for Chart.js
-- [qrcode](https://github.com/cyu/rack-cors) - QR code generator for URLs
+- [qrcode](https://www.npmjs.com/package/qrcode) - QR code generator for URLs
 - [react-virtual](https://www.npmjs.com/package/react-virtual) - For virtualizing scrollable elements in React
 
 ## Folders
@@ -119,7 +123,7 @@ page = MetaInspector.new(@link.url)
 page.title # Returns page title if found
 ```
 
-### Increase Clicks Count
+#### Increase Clicks Count
 The `EventHandler::IncreaseClicksCount ` service object can be accessed in `app/services/event_handler/increase_clicks_count.rb`. This service object is called to increase the `clicks_count` of the `Link` instance by 1.
 
 ```
@@ -198,8 +202,9 @@ This application is configured to deploy using [dokku](https://dokku.com/) on EC
 - Additionally, you may set `dokku config:set your_app_name CDN_HOST=YOUR_CDN_HOST` if you want to use a CDN to serve your assets 
 - On your local repository, add git remote `git remote add dokku dokku@[ec2_ip_address]:[dokku_app_name]`
 - Run `git push dokku main` to deploy to production
-- Run `dokku ps:scale worker=1` to scale the worker process to 1
+- Run `dokku ps:scale your_app_name worker=1` to scale the worker process to 1
 - Run `dokku domains:add your_app_name domain_name` to add a domain name to your application (if applicable)
+- Run `dokku run your_app_name rails db:create db:migrate` to migrate your DB
 
 
 ### Deploying DB and Redis using dokku
@@ -215,13 +220,15 @@ This application is configured to deploy using [dokku](https://dokku.com/) on EC
 - Additionally, you may set `dokku config:set your_app_name CDN_HOST=YOUR_CDN_HOST` if you want to use a CDN to serve your assets
 - On your local repository, add git remote `git remote add dokku dokku@[server_ip_address]:[dokku_app_name]`
 - Run `git push dokku main` to deploy to production
-- Run `dokku ps:scale worker=1` to scale the worker process to 1
+- Run `dokku ps:scale your_app_name worker=1` to scale the worker process to 1
 - Run `dokku domains:add your_app_name domain_name` to add a domain name to your application (if applicable)
+- Run `dokku run your_app_name rails db:create db:migrate` to migrate your DB
 
 
 #### Adding SSL Support
 
-- In your EC2 instance, install [letsencrypt plugin](https://github.com/dokku/dokku-letsencrypt) for dokku
+- In your EC2 instance, SSH in as ubuntu and install [letsencrypt plugin](https://github.com/dokku/dokku-letsencrypt) for dokku
+- Run `dokku domains:remove your_app_name your_v_host_url`
 - Run `dokku letsencrypt:enable your_app_name` to install SSL certificate for your app
 
 ### Deployment Issues

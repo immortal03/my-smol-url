@@ -17,7 +17,7 @@ class Link < ApplicationRecord
     return nil if slug.blank?
 
     # Remember to set APP_URL env in production to root url
-    # e.g. https://mysmolurl.com
+    # e.g. https://smolurl.me
     if Rails.env.production?
       "#{ENV["APP_URL"]}#{slug}"
     else
@@ -29,7 +29,7 @@ class Link < ApplicationRecord
     return nil if slug.blank?
 
     # Remember to set ROOT_URL env in production to root url
-    # e.g. mysmolurl.com
+    # e.g. smolurl.me
     if Rails.env.production?
       "#{ENV["ROOT_URL"]}#{slug}"
     else
